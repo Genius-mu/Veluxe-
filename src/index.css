@@ -1,1 +1,53 @@
 @import "tailwindcss";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply font-sans text-ink bg-paper overflow-x-hidden;
+  }
+  ::selection {
+    @apply bg-coral text-paper;
+  }
+}
+
+@layer utilities {
+  /* Diagonal section clip — top-left to bottom-right cut */
+  .clip-diag-down {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 85%);
+  }
+  .clip-diag-up {
+    clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+  }
+  .clip-diag-left {
+    clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+  }
+
+  .label-eyebrow {
+    @apply font-mono text-[11px] uppercase tracking-wider2 text-smoke;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
