@@ -1,72 +1,58 @@
 /**
- * Veluxe image sources.
+ * Veluxe image sources — Pixabay CDN.
  *
- * We use Pollinations.ai during development — it accepts a prompt as a URL
- * and returns a generated image. Zero setup, real images. When you want
- * print-grade finals, take the same prompts to Imagen / Midjourney / Flux.
+ * All images are free under the Pixabay Content License: no attribution
+ * required, free for commercial use. CDN URLs are permanent and hotlink-safe.
  *
- * Swap any value below for a CDN URL once you ship.
+ * Each entry includes the source page so you can grab higher-res versions
+ * (swap `_1280` → `_1920` for ~1920px, or download the original from the page).
  */
 
-const POLLI = "https://image.pollinations.ai/prompt";
-
-const polli = (
-  prompt: string,
-  opts: { w?: number; h?: number; seed?: number; model?: string } = {}
-) => {
-  const { w = 900, h = 1200, seed = 42, model = "flux" } = opts;
-  const q = encodeURIComponent(prompt.trim().replace(/\s+/g, " "));
-  return `${POLLI}/${q}?width=${w}&height=${h}&seed=${seed}&model=${model}&nologo=true`;
-};
-
 export const images = {
-  // Hero V-cutout — same model, three lighting moods (slices of the V)
-  heroModel: polli(
-    "editorial beauty portrait of a confident woman, dewy velvet skin, soft cinematic lighting, neutral background, high fashion magazine, sharp focus, 35mm, no text, no logo",
-    { w: 1000, h: 1400, seed: 7 }
-  ),
+  // ── Hero V-cutout ───────────────────────────────────────────────
+  // 01 — Origin: editorial beauty portrait
+  // https://pixabay.com/photos/woman-beauty-portrait-model-pose-9473442/
+  heroModel:
+    "https://cdn.pixabay.com/photo/2025/03/16/07/58/woman-9473442_1280.jpg",
 
-  // Slide 2 — product / formula focus
-  heroFormula: polli(
-    "minimalist beauty product still life, glass dropper bottle of velvety serum, soft shadow, off-white surface, editorial, no text, no labels",
-    { w: 1000, h: 1400, seed: 22 }
-  ),
+  // 02 — Formula: glass bottle / wellness product
+  // https://pixabay.com/photos/glass-bottle-oil-wellness-flowers-4108085/
+  heroFormula:
+    "https://cdn.pixabay.com/photo/2019/04/06/19/22/glass-4108085_1280.jpg",
 
-  // Slide 3 — lifestyle moment
-  heroLifestyle: polli(
-    "candid moment, woman applying lip balm in a sunlit room, linen curtains, warm soft light, editorial fashion photography, no text",
-    { w: 1000, h: 1400, seed: 91 }
-  ),
+  // 03 — Worn: woman with hand near face, soft lifestyle
+  // https://pixabay.com/photos/woman-hand-portrait-beauty-girl-6135236/
+  heroLifestyle:
+    "https://cdn.pixabay.com/photo/2021/03/29/20/28/woman-6135236_1280.jpg",
 
-  // Darling section — hero product on champagne backdrop
-  darlingProduct: polli(
-    "single luxury cosmetic tube standing on champagne peach surface, beside a small terracotta potted aloe plant, soft natural light, minimal editorial product photography, no text, no labels",
-    { w: 900, h: 1200, seed: 14 }
-  ),
+  // ── Darling section — peach band hero product ───────────────────
+  // https://pixabay.com/photos/perfume-bottle-glass-cosmetics-1433653/
+  darlingProduct:
+    "https://cdn.pixabay.com/photo/2016/06/03/15/45/perfume-1433653_1280.jpg",
 
-  // Showcase trio — three products
-  showcaseA: polli(
-    "tall frosted glass cosmetic bottle, soft pastel pink background, minimalist product photo, no text",
-    { w: 600, h: 800, seed: 31 }
-  ),
-  showcaseB: polli(
-    "ceramic cosmetic jar with geometric faceted lid, off-white background, soft shadow, minimalist product photo, no text",
-    { w: 600, h: 800, seed: 32 }
-  ),
-  showcaseC: polli(
-    "elegant hand holding a slim cosmetic tube, black and white, editorial beauty photography, no text",
-    { w: 600, h: 800, seed: 33 }
-  ),
+  // ── Showcase — Founding Three trio ──────────────────────────────
+  // A — Cosmetic oil bottle
+  // https://pixabay.com/photos/cosmetic-oil-essential-oil-3868594/
+  showcaseA:
+    "https://cdn.pixabay.com/photo/2018/12/11/08/44/cosmetic-oil-3868594_1280.jpg",
 
-  // Showcase center hero — cobalt trio
-  showcaseHero: polli(
-    "three cosmetic tubes standing together, two cobalt blue and one cream, soft daylight, minimal editorial product photography, no text, no labels",
-    { w: 1200, h: 900, seed: 44 }
-  ),
+  // B — Beauty cosmetic products
+  // https://pixabay.com/photos/beauty-cosmetic-products-cosmetics-4993472/
+  showcaseB:
+    "https://cdn.pixabay.com/photo/2020/04/02/05/19/beauty-4993472_1280.jpg",
 
-  // Journey — woman against teal wall
-  journeyModel: polli(
-    "young woman with long wavy hair in red wrap top, smiling, leaning against bright teal wood-panel wall, golden hour light, fashion editorial portrait, no text",
-    { w: 900, h: 1100, seed: 58 }
-  ),
+  // C — Hand holding cream lotion
+  // https://pixabay.com/photos/cream-lotion-hands-sunscreen-spa-4713579/
+  showcaseC:
+    "https://cdn.pixabay.com/photo/2019/12/23/01/16/cream-4713579_1280.jpg",
+
+  // Cobalt Edition strip — multiple bottles
+  // https://pixabay.com/photos/essential-oils-cosmetology-2738555/
+  showcaseHero:
+    "https://cdn.pixabay.com/photo/2017/09/11/11/22/essential-oils-2738555_1280.jpg",
+
+  // ── Journey — cyan band portrait ────────────────────────────────
+  // https://pixabay.com/photos/woman-beauty-iran-face-girl-8378634/
+  journeyModel:
+    "https://cdn.pixabay.com/photo/2023/11/10/02/30/woman-8378634_1280.jpg",
 };
