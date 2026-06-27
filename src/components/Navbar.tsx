@@ -48,12 +48,12 @@ export default function Navbar() {
         {/* Mobile — single Order CTA */}
         <div className="w-full flex md:hidden">
           {MenuHidden && (
-            <nav className="md:hidden top-[90%] w-full bg-black/90 backdrop-blur-2xl absolute flex p-4 flex-col left-0 gap-3 border-t border-white/30">
+            <nav className="md:hidden top-[90%] w-full bg-[#232323] backdrop-blur-2xl absolute flex p-4 flex-col left-0 gap-3 border-t border-white/30">
               {navItems.map((item) => (
                 <a
                   key={item.label}
                   href={item.href}
-                  className="group relative text-sm font-light text-paper/90 hover:text-paper py-3 px-3 hover:bg-coral transition-all duration-300"
+                  className="group relative text-sm font-light text-paper/90 hover:text-paper py-3 px-3 hover:bg-coral transition-all duration-400 ease-in-out"
                 >
                   {item.label}
                   <span className="absolute -bottom-1 left-0 h-px w-0 bg-paper transition-all duration-300 group-hover:w-full" />
