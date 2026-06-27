@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+@theme {
+  /* Define custom colors */
+  --color-ink: #1a1a1a;   /* Replace with your exact ink color hex */
+  --color-paper: #f9f9f9; /* Replace with your exact paper color hex */
+  --color-coral: #ff7f50; /* Replace with your exact coral color hex */
+  --color-smoke: #737373; /* Replace with your exact smoke color hex */
+
+  /* Define custom letter-spacing */
+  --tracking-wider2: 0.15em; /* Replace with your exact tracking value */
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
