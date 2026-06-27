@@ -17,7 +17,7 @@ export default function Navbar() {
       <div className="mx-auto flex max-w-[1400px] items-center justify-between">
         <a
           href="#"
-          className="font-display text-xl font-medium tracking-wider2 text-velvet"
+          className="font-display text-xl font-medium tracking-wider2 text-velvet text-green-400"
         >
           VELUXE
         </a>
@@ -38,11 +38,30 @@ export default function Navbar() {
             className="group relative text-sm font-medium text-coral"
           >
             Order
-            <span className="absolute -bottom-1 left-0 h-px w-full bg-coral" />
           </a>
         </nav>
 
         {/* Mobile — single Order CTA */}
+        <div className="relative w-full inset-5 bg-yellow-500">
+          <nav className="md:hidden w-full bg-green-500 absolute flex py-4 flex-col items-center gap-10">
+            {navItems.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                className="group relative text-sm font-light text-paper/90 transition-colors hover:text-paper"
+              >
+                {item.label}
+                <span className="absolute -bottom-1 left-0 h-px w-0 bg-paper transition-all duration-300 group-hover:w-full" />
+              </a>
+            ))}
+            <a
+              href="#order"
+              className="group relative text-sm font-medium text-coral"
+            >
+              Order
+            </a>
+          </nav>
+        </div>
         <a href="#order" className="text-sm font-medium text-coral md:hidden">
           Order
         </a>
