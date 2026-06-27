@@ -1,16 +1,44 @@
-# React + Vite
+# Veluxe — Homepage
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Quiet luxury, worn loud. Built with React + TypeScript + Tailwind + Framer Motion.
 
-Currently, two official plugins are available:
+## Run it
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev
+```
 
-## React Compiler
+## What's in the page
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Section       | File                             | Notes                                               |
+| ------------- | -------------------------------- | --------------------------------------------------- |
+| Navbar        | `src/components/Navbar.tsx`      | Fixed on dark hero, animated underlines             |
+| Hero          | `src/components/Hero.tsx`        | 3-slide horizontal slider with V-letterform cutout  |
+| Darling       | `src/components/Darling.tsx`     | Peach band, "Darling, we've got you" motif          |
+| Showcase      | `src/components/Showcase.tsx`    | Founding-three grid + cobalt edition strip          |
+| Journey       | `src/components/Journey.tsx`     | Mist/cyan band, "Carbon" / "Journey" floating words |
+| Stay In Touch | `src/components/StayInTouch.tsx` | Newsletter + Contact CTA                            |
+| Footer        | `src/components/Footer.tsx`      | Wordmark + policy links                             |
 
-## Expanding the ESLint configuration
+## Design tokens
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Defined in `tailwind.config.js`:
+
+- `ink` #0E0E10 — hero / type
+- `paper` #FBFAF7 — base
+- `champagne` #F4E2D2 — peach band
+- `mist` #D6ECEC — cyan band
+- `coral` #F26B7A — primary accent (CTAs, accent words)
+- `velvet` #3DD0C5 — logo + secondary accent
+- `smoke` #6B6B70 — muted body
+
+Display: **Oswald** · Body: **Inter** · Utility: **JetBrains Mono**
+
+## Motion
+
+All animations are Framer Motion. The hero slider uses `AnimatePresence mode="wait"` with directional custom variants. Each scroll section uses `whileInView` with `viewport={{ once: true, margin: "-100px" }}` and staggered children for a "slide in" reveal. `prefers-reduced-motion` is honoured globally via `src/index.css`.
+
+## Images
+
+Image sources are centralized in `src/lib/images.ts` and use **Pollinations.ai** URLs that return real generated images at request time. To swap in production-grade assets, replace any value in that file with a CDN URL — nothing else changes. Prompts for hand-generation in Imagen / Midjourney / Flux are in `IMAGE_PROMPTS.md`.
