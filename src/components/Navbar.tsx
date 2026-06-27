@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Menu } from "lucide-react";
 
 const navItems = [
   { label: "Products", href: "#products" },
@@ -42,13 +43,13 @@ export default function Navbar() {
         </nav>
 
         {/* Mobile — single Order CTA */}
-        <div className="relative w-full inset-5 bg-yellow-500">
-          <nav className="md:hidden w-full bg-green-500 absolute flex py-4 flex-col items-center gap-10">
+        <div className="w-full">
+          <nav className="md:hidden top-[90%] w-full bg-black/90 backdrop-blur-2xl absolute flex p-4 flex-col left-0 gap-3">
             {navItems.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
-                className="group relative text-sm font-light text-paper/90 transition-colors hover:text-paper"
+                className="group relative text-sm font-light text-paper/90 transition-colors hover:text-paper py-3 px-3 hover:bg-coral transition duration-300"
               >
                 {item.label}
                 <span className="absolute -bottom-1 left-0 h-px w-0 bg-paper transition-all duration-300 group-hover:w-full" />
@@ -56,15 +57,17 @@ export default function Navbar() {
             ))}
             <a
               href="#order"
-              className="group relative text-sm font-medium text-coral"
+              className="group relative text-sm font-medium text-white py-3 rounded-3xl text-center bg-coral"
             >
               Order
             </a>
           </nav>
         </div>
-        <a href="#order" className="text-sm font-medium text-coral md:hidden">
-          Order
-        </a>
+        <div>
+          <span>
+            <Menu className="text-white" />
+          </span>
+        </div>
       </div>
     </motion.header>
   );
