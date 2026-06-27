@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Menu } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
 
 const navItems = [
   { label: "Products", href: "#products" },
@@ -8,6 +9,8 @@ const navItems = [
 ];
 
 export default function Navbar() {
+  const [MenuHidden, setMenuHidden] = useState(false);
+
   return (
     <motion.header
       initial={{ y: -40, opacity: 0 }}
@@ -44,28 +47,40 @@ export default function Navbar() {
 
         {/* Mobile — single Order CTA */}
         <div className="w-full">
-          <nav className="md:hidden top-[90%] w-full bg-black/90 backdrop-blur-2xl absolute flex p-4 flex-col left-0 gap-3">
-            {navItems.map((item) => (
+          {MenuHidden && (
+            <nav className="md:hidden top-[90%] w-full bg-black/90 backdrop-blur-2xl absolute flex p-4 flex-col left-0 gap-3">
+              {navItems.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="group relative text-sm font-light text-paper/90 transition-colors hover:text-paper py-3 px-3 hover:bg-coral transition duration-300"
+                >
+                  {item.label}
+                  <span className="absolute -bottom-1 left-0 h-px w-0 bg-paper transition-all duration-300 group-hover:w-full" />
+                </a>
+              ))}
               <a
-                key={item.label}
-                href={item.href}
-                className="group relative text-sm font-light text-paper/90 transition-colors hover:text-paper py-3 px-3 hover:bg-coral transition duration-300"
+                href="#order"
+                className="group relative text-sm font-medium text-white py-3 rounded-3xl text-center bg-[#6b1e00] hover:bg-[#b23200] transition-all duration-300"
               >
-                {item.label}
-                <span className="absolute -bottom-1 left-0 h-px w-0 bg-paper transition-all duration-300 group-hover:w-full" />
+                Order
               </a>
-            ))}
-            <a
-              href="#order"
-              className="group relative text-sm font-medium text-white py-3 rounded-3xl text-center bg-coral"
-            >
-              Order
-            </a>
-          </nav>
+            </nav>
+          )}
         </div>
         <div>
           <span>
-            <Menu className="text-white" />
+            {MenuHidden ? (
+              <X
+                onClick={() => setMenuHidden(!MenuHidden)}
+                className="text-white cursor-pointer"
+              />
+            ) : (
+              <Menu
+                onClick={() => setMenuHidden(!MenuHidden)}
+                className="text-white cursor-pointer"
+              />
+            )}
           </span>
         </div>
       </div>
