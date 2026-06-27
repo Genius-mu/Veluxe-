@@ -46,14 +46,14 @@ export default function Navbar() {
         </nav>
 
         {/* Mobile — single Order CTA */}
-        <div className="w-full">
+        <div className="w-full flex md:hidden">
           {MenuHidden && (
-            <nav className="md:hidden top-[90%] w-full bg-black/90 backdrop-blur-2xl absolute flex p-4 flex-col left-0 gap-3">
+            <nav className="md:hidden top-[90%] w-full bg-black/90 backdrop-blur-2xl absolute flex p-4 flex-col left-0 gap-3 border-t border-white/30">
               {navItems.map((item) => (
                 <a
                   key={item.label}
                   href={item.href}
-                  className="group relative text-sm font-light text-paper/90 transition-colors hover:text-paper py-3 px-3 hover:bg-coral transition duration-300"
+                  className="group relative text-sm font-light text-paper/90 hover:text-paper py-3 px-3 hover:bg-coral transition-all duration-300"
                 >
                   {item.label}
                   <span className="absolute -bottom-1 left-0 h-px w-0 bg-paper transition-all duration-300 group-hover:w-full" />
@@ -61,7 +61,7 @@ export default function Navbar() {
               ))}
               <a
                 href="#order"
-                className="group relative text-sm font-medium text-white py-3 rounded-3xl text-center bg-[#6b1e00] hover:bg-[#b23200] transition-all duration-300"
+                className="group relative text-sm font-medium text-white py-3 rounded-3xl text-center bg-[#b23200] hover:bg-[#f94700] transition-all duration-300 uppercase"
               >
                 Order
               </a>
@@ -69,7 +69,7 @@ export default function Navbar() {
           )}
         </div>
         <div>
-          <span>
+          <span className="flex md:hidden">
             {MenuHidden ? (
               <X
                 onClick={() => setMenuHidden(!MenuHidden)}
