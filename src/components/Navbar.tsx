@@ -34,7 +34,7 @@ export default function Navbar() {
       <div className="mx-auto flex max-w-[1400px] items-center justify-between">
         {/* Logo */}
         <Link
-          to="#"
+          to="/"
           className="font-display text-xl font-medium tracking-wider2 text-velvet"
         >
           VELUXE
@@ -46,7 +46,7 @@ export default function Navbar() {
             <Link
               key={item.label}
               to={item.href}
-              className="group relative text-sm font-light text-paper/90 transition-colors hover:text-paper"
+              className="group relative text-shadow-2xs text-sm font-light text-paper/90 transition-colors hover:text-paper"
             >
               {item.label}
               <span className="absolute -bottom-1 left-0 h-px w-0 bg-paper transition-all duration-300 group-hover:w-full" />

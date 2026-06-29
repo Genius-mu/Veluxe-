@@ -27,7 +27,7 @@ export default function ProductsPage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-paper text-ink">
+    <main className="min-h-screen bg-black text-ink">
       {/* ── Page header ─────────────────────────────────────────── */}
       <section className="px-6 pt-32 pb-12 sm:px-10 sm:pt-40 sm:pb-16">
         <motion.div
@@ -52,7 +52,7 @@ export default function ProductsPage() {
 
           <motion.h1
             variants={fadeUp}
-            className="font-display text-5xl font-medium uppercase leading-[0.95] tracking-tight sm:text-6xl md:text-7xl"
+            className="font-display text-5xl font-medium uppercase leading-[0.95] tracking-tight sm:text-6xl md:text-7xl text-white/30"
           >
             Slowly made.
           </motion.h1>
