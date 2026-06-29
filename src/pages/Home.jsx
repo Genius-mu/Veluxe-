@@ -1,10 +1,8 @@
-import Navbar from "../components/Navbar";
-import Hero from "../components/Hero";
 import Darling from "../components/Darling";
 import Showcase from "../components/Showcase";
 import Journey from "../components/Journey";
 import StayInTouch from "../components/StayInTouch";
-import Footer from "../components/Footer";
+import Hero from "../components/Hero";
 
 export default function Home() {
   return (
@@ -14,7 +12,6 @@ export default function Home() {
       <Showcase />
       <Journey />
       <StayInTouch />
-      <Footer />
     </main>
   );
 }

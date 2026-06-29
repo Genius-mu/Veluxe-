@@ -3,15 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Play, ArrowUp } from "lucide-react";
 import { images } from "../lib/images";
 
-type Slide = {
-  index: string;
-  headlineTop: string;
-  headlineBottom: string;
-  body: string;
-  image: string;
-};
-
-const slides: Slide[] = [
+const slides = [
   {
     index: "01 — Origin",
     headlineTop: "MAKE EVERYDAY",
@@ -39,12 +31,12 @@ const slides: Slide[] = [
 ];
 
 const slideVariants = {
-  enter: (dir: number) => ({
+  enter: (dir) => ({
     x: dir > 0 ? "60%" : "-60%",
     opacity: 0,
   }),
   center: { x: 0, opacity: 1 },
-  exit: (dir: number) => ({
+  exit: (dir) => ({
     x: dir > 0 ? "-60%" : "60%",
     opacity: 0,
   }),
@@ -60,10 +52,10 @@ const textItem = {
 };
 
 export default function Hero() {
-  const [[index, dir], setSlide] = useState<[number, number]>([0, 1]);
+  const [[index, dir], setSlide] = useState([0, 1]);
   const slide = slides[index];
 
-  const go = (delta: number) => {
+  const go = (delta) => {
     const next = (index + delta + slides.length) % slides.length;
     setSlide([next, delta]);
   };
@@ -192,10 +184,6 @@ function VCutout({
   image,
   direction,
   sliceKey,
-}: {
-  image: string;
-  direction: number;
-  sliceKey: number;
 }) {
   return (
     <div className="relative aspect-[3/4] w-full max-w-[420px]">
