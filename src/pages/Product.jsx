@@ -1,145 +1,117 @@
-import { images } from "../lib/images";
+import { motion } from "framer-motion";
+import { useMemo, useState } from "react";
 
-const NGN = "₦";
-export const formatPrice = (n) => `${NGN}${n.toLocaleString("en-NG")}`;
+import MarqueeColumn from "../components/MarqueeColumn";
+import ProductCard from "../components/ProductCard";
+import ProductModal from "../components/ProductModal";
+import { products } from "../lib/product";
 
-export const products = [
-  {
-    id: "velvet-lip-tint-07",
-    name: "Velvet Lip Tint",
-    collection: "Lip",
-    price: 8500,
-    size: "4.2g",
-    shade: "№07 Coral",
-    image: images.darlingProduct,
-    aspect: "3/4",
-    blurb: "A petal-soft stain that wears down to a mood, not a memory.",
-    description:
-      "A weightless lip stain that wears for hours and fades to a soft-stained finish. Built on a base of murumuru butter and vitamin E so the colour goes on cushioned, never dry. Apply one swipe for a wash; press two together for the velvet hour.",
-    ingredients: ["Murumuru butter", "Vitamin E", "Squalane", "Mica"],
+const fadeUp = {
+  hidden: { y: 30, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
   },
-  {
-    id: "glow-primer",
-    name: "Glow Primer",
-    collection: "Skin",
-    price: 12000,
-    size: "30ml",
-    image: images.showcaseB,
-    aspect: "4/5",
-    blurb: "The 60-second base that holds the rest of the day together.",
-    description:
-      "A silicone-free primer that smooths, hydrates, and gives skin a quiet inner-lit finish. Niacinamide 4% calms the surface; hyaluronic acid pulls water in; oat lipids seal it. Works as a standalone glow on no-makeup days.",
-    ingredients: [
-      "Niacinamide 4%",
-      "Hyaluronic acid",
-      "Oat lipids",
-      "Glycerin",
-    ],
-  },
-  {
-    id: "overnight-mask",
-    name: "Overnight Mask",
-    collection: "Skin",
-    price: 15500,
-    size: "50ml",
-    image: images.showcaseHero,
-    aspect: "1/1",
-    blurb: "Sleep in it. Wake up softer than you went to bed.",
-    description:
-      "A leave-on sleeping mask that works the long shift. Polyglutamic acid holds 4× the water of hyaluronic; ceramide-3 rebuilds barrier; squalane mimics the skin's own lipids. Wakes up dewy, not greasy.",
-    ingredients: [
-      "Polyglutamic acid",
-      "Ceramide-3",
-      "Squalane",
-      "Centella asiatica",
-    ],
-  },
-  {
-    id: "aqua-glass-serum",
-    name: "Aqua Glass Serum",
-    collection: "Skin",
-    price: 18000,
-    size: "30ml",
-    image: images.heroFormula,
-    aspect: "3/4",
-    blurb: "The hydrator that makes everything else work harder.",
-    description:
-      "A featherlight serum built around four molecular weights of hyaluronic acid — surface, mid-layer, deep, and time-release. Skin reads as glass within a week. Pairs with anything; competes with nothing.",
-    ingredients: [
-      "4-weight hyaluronic acid",
-      "Beta-glucan",
-      "Panthenol",
-      "Glycerin",
-    ],
-  },
-  {
-    id: "cobalt-spf",
-    name: "Cobalt Mineral SPF 50",
-    collection: "Sun",
-    price: 14000,
-    size: "50ml",
-    image: images.showcaseA,
-    aspect: "4/5",
-    blurb: "Daily mineral protection that never leaves a cast.",
-    description:
-      "Non-nano zinc oxide 21%, finished invisible on every shade we've tested. No white cast, no pilling under makeup, no heavy feel. Tinted with iron oxides to neutralise blue-light grey on deeper skin.",
-    ingredients: ["Zinc oxide 21%", "Iron oxides", "Squalane", "Tocopherol"],
-  },
-  {
-    id: "sleep-in-balm",
-    name: "Sleep-In Balm",
-    collection: "Lip",
-    price: 11500,
-    size: "12g",
-    image: images.showcaseC,
-    aspect: "1/1",
-    blurb: "Honey, squalane, and an hour of your beauty sleep doing the work.",
-    description:
-      "A nighttime lip mask built on Manuka honey UMF 10+, squalane, and a quiet trio of fatty acids. Goes on cushioned, soaks in by morning. The closest thing to repair on a lip you'll find.",
-    ingredients: ["Manuka honey", "Squalane", "Shea butter", "Vitamin E"],
-  },
-  {
-    id: "velvet-pencil-03",
-    name: "Velvet Pencil",
-    collection: "Lip",
-    price: 6500,
-    size: "1.2g",
-    shade: "№03 Nude",
-    image: images.darlingProduct,
-    aspect: "3/4",
-    blurb: "Defines without a line. Wears like skin.",
-    description:
-      "A creamy lip pencil that disappears into the lip line. Designed to layer under the Velvet Lip Tint or wear alone for a my-lips-but-better finish. Twist-up, no sharpener.",
-    ingredients: ["Jojoba ester", "Candelilla wax", "Vitamin E", "Mica"],
-  },
-  {
-    id: "glow-drops",
-    name: "Glow Drops",
-    collection: "Cheek",
-    price: 9800,
-    size: "15ml",
-    image: images.showcaseB,
-    aspect: "4/5",
-    blurb: "Three drops, mix into anything, light from inside.",
-    description:
-      "A liquid luminiser you can wear alone, mix into moisturiser, or layer over primer. Soft-focus pearl pigments — never glittery. Pairs especially well with bare skin and a half-tied silk.",
-    ingredients: ["Pearl pigment", "Squalane", "Argan oil", "Vitamin E"],
-  },
-  {
-    id: "velvet-blush-petal",
-    name: "Velvet Blush",
-    collection: "Cheek",
-    price: 8200,
-    size: "5g",
-    shade: "Petal",
-    image: images.heroFormula,
-    aspect: "1/1",
-    blurb: "A weightless cream that flushes like the real thing.",
-    description:
-      "A cream-to-velvet blush that melts into skin and stays put. Built on the same murumuru base as the Lip Tint — they layer together on cheeks for a monochrome wash. Three shades; this one's pink-petal.",
-    ingredients: ["Murumuru butter", "Mica", "Squalane", "Tocopherol"],
-  },
-];
+};
 
-// Split into 3 columns for the marquee — modulo distribution keeps it balanced
-export const columnProducts = (col) => products.filter((_, i) => i % 3 === col);
+export default function ProductsPage() {
+  const [selected, setSelected] = useState(null);
+
+  // Split the catalogue across three columns.
+  const [col1, col2, col3] = useMemo(() => {
+    const a = products.slice(0, 4);
+    const b = products.slice(4, 8);
+    const c = products.slice(8, 12);
+    return [a, b, c];
+  }, []);
+
+  return (
+    <main className="min-h-screen bg-paper text-ink">
+      {/* ── Page header ─────────────────────────────────────────── */}
+      <section className="px-6 pt-32 pb-12 sm:px-10 sm:pt-40 sm:pb-16">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.1 } },
+          }}
+          className="mx-auto flex max-w-[1400px] flex-col items-center text-center"
+        >
+          <motion.div
+            variants={fadeUp}
+            className="mb-5 flex items-center gap-3"
+          >
+            <span className="h-px w-8 bg-ink" />
+            <span className="font-mono text-[11px] uppercase tracking-wider2 text-smoke">
+              The Catalogue
+            </span>
+            <span className="h-px w-8 bg-ink" />
+          </motion.div>
+
+          <motion.h1
+            variants={fadeUp}
+            className="font-display text-5xl font-medium uppercase leading-[0.95] tracking-tight sm:text-6xl md:text-7xl"
+          >
+            Slowly made.
+          </motion.h1>
+          <motion.h1
+            variants={fadeUp}
+            className="font-display text-5xl font-medium uppercase leading-[0.95] tracking-tight text-coral sm:text-6xl md:text-7xl"
+          >
+            Worth keeping.
+          </motion.h1>
+
+          <motion.p
+            variants={fadeUp}
+            className="mt-7 max-w-md text-[15px] leading-relaxed text-ink/60"
+          >
+            Every Veluxe piece earns its shelf. Hover any column to linger, tap
+            any piece to read the full story.
+          </motion.p>
+        </motion.div>
+      </section>
+
+      {/* ── Marquee grid (desktop) ──────────────────────────────── */}
+      <section className="hidden px-4 pb-24 sm:px-6 md:block">
+        <div className="mx-auto grid h-[78vh] min-h-[640px] max-w-[1400px] grid-cols-3 gap-4">
+          <MarqueeColumn
+            products={col1}
+            direction="up"
+            delay="0s"
+            onSelect={setSelected}
+          />
+          <MarqueeColumn
+            products={col2}
+            direction="down"
+            delay="-30s"
+            onSelect={setSelected}
+          />
+          <MarqueeColumn
+            products={col3}
+            direction="up"
+            delay="-60s"
+            onSelect={setSelected}
+          />
+        </div>
+      </section>
+
+      {/* ── Mobile grid (no marquee — easier on small screens) ──── */}
+      <section className="px-4 pb-24 md:hidden">
+        <div className="mx-auto grid max-w-[680px] grid-cols-2 gap-3">
+          {products.map((p) => (
+            <ProductCard
+              key={p.id}
+              product={p}
+              onClick={() => setSelected(p)}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* ── Modal ───────────────────────────────────────────────── */}
+      <ProductModal product={selected} onClose={() => setSelected(null)} />
+    </main>
+  );
+}

@@ -16,8 +16,31 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
-  /* Extended letter-spacing — used by .label-eyebrow + the wordmark */
+  /* Extended letter-spacing */
   --tracking-wider2: 0.14em;
+
+  /* Marquee animations — used by the products page */
+  --animate-marquee-up: marquee-up 80s linear infinite;
+  --animate-marquee-down: marquee-down 80s linear infinite;
+}
+
+/* ── Keyframes ─────────────────────────────────────────────── */
+@keyframes marquee-up {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes marquee-down {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 /* ── Base ──────────────────────────────────────────────────── */
@@ -69,25 +92,6 @@
 
   &::-webkit-scrollbar {
     display: none;
-  }
-}
-
-/* ── Marquee keyframes (Products page) ─────────────────────── */
-@keyframes marquee-up {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-50%);
-  }
-}
-
-@keyframes marquee-down {
-  from {
-    transform: translateY(-50%);
-  }
-  to {
-    transform: translateY(0);
   }
 }
 
