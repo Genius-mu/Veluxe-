@@ -1,4 +1,4 @@
-import { images } from "../lib/images";
+import { images } from "./images";
 
 /**
  * The Veluxe catalogue.

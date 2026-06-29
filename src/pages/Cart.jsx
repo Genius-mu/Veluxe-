@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import CartItem from "../components/CartItem";
 import CartSummary, { calcTotals } from "../components/CartSummary";
 import EmptyCart from "../components/EmptyCart";
-import { products } from "../data/products";
+import { products } from "../lib/Product";
 
 const parsePrice = (s) => parseFloat(String(s).replace(/[^0-9.]/g, "")) || 0;
 
