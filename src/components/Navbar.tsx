@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const navItems = [
   { label: "Products", href: "#products" },
@@ -9,7 +9,16 @@ const navItems = [
 ];
 
 export default function Navbar() {
-  const [MenuHidden, setMenuHidden] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Close on Escape
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) =>
+      e.key === "Escape" && setMenuOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [menuOpen]);
 
   return (
     <motion.header
@@ -19,13 +28,15 @@ export default function Navbar() {
       className="absolute inset-x-0 top-0 z-30 px-6 py-6 sm:px-10 sm:py-8"
     >
       <div className="mx-auto flex max-w-[1400px] items-center justify-between">
+        {/* Logo */}
         <a
           href="#"
-          className="font-display text-xl font-medium tracking-wider2 text-velvet text-green-400"
+          className="font-display text-xl font-medium tracking-wider2 text-velvet"
         >
           VELUXE
         </a>
 
+        {/* Desktop nav */}
         <nav className="hidden items-center gap-10 md:flex">
           {navItems.map((item) => (
             <a
@@ -42,48 +53,77 @@ export default function Navbar() {
             className="group relative text-sm font-medium text-coral"
           >
             Order
+            <span className="absolute -bottom-1 left-0 h-px w-full bg-coral" />
           </a>
         </nav>
 
-        {/* Mobile — single Order CTA */}
-        <div className="w-full flex md:hidden">
-          {MenuHidden && (
-            <nav className="md:hidden top-[90%] w-full bg-[#232323] backdrop-blur-2xl absolute flex p-4 flex-col left-0 gap-3 border-t border-white/30">
-              {navItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="group relative text-sm font-light text-paper/90 hover:text-paper py-3 px-3 hover:bg-coral transition-all duration-400 ease-in-out"
-                >
-                  {item.label}
-                  <span className="absolute -bottom-1 left-0 h-px w-0 bg-paper transition-all duration-300 group-hover:w-full" />
-                </a>
-              ))}
-              <a
-                href="#order"
-                className="group relative text-sm font-medium text-white py-3 rounded-3xl text-center bg-[#b23200] hover:bg-[#f94700] transition-all duration-300 uppercase"
-              >
-                Order
-              </a>
-            </nav>
-          )}
-        </div>
-        <div>
-          <span className="flex md:hidden">
-            {MenuHidden ? (
-              <X
-                onClick={() => setMenuHidden(!MenuHidden)}
-                className="text-white cursor-pointer"
-              />
-            ) : (
-              <Menu
-                onClick={() => setMenuHidden(!MenuHidden)}
-                className="text-white cursor-pointer"
-              />
-            )}
-          </span>
-        </div>
+        {/* Mobile hamburger */}
+        <button
+          onClick={() => setMenuOpen((v) => !v)}
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          className="relative z-50 grid h-10 w-10 place-items-center text-paper md:hidden"
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.span
+              key={menuOpen ? "x" : "menu"}
+              initial={{ rotate: -90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: 90, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              {menuOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
+            </motion.span>
+          </AnimatePresence>
+        </button>
       </div>
+
+      {/* Mobile dropdown */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.nav
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute inset-x-6 top-full mt-2 flex flex-col border border-paper/10 bg-ink/95 backdrop-blur-md sm:inset-x-10 md:hidden"
+          >
+            {navItems.map((item, i) => (
+              <motion.a
+                key={item.label}
+                href={item.href}
+                onClick={() => setMenuOpen(false)}
+                initial={{ opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.05 + i * 0.04, duration: 0.3 }}
+                className="border-b border-paper/10 px-5 py-4 text-sm font-light text-paper/90 transition-colors hover:bg-paper/5 hover:text-paper"
+              >
+                {item.label}
+              </motion.a>
+            ))}
+            <motion.a
+              href="#order"
+              onClick={() => setMenuOpen(false)}
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{
+                delay: 0.05 + navItems.length * 0.04,
+                duration: 0.3,
+              }}
+              className="group relative overflow-hidden bg-coral px-5 py-4 text-center"
+            >
+              <span className="absolute inset-0 origin-left scale-x-0 bg-ink transition-transform duration-500 ease-out group-hover:scale-x-100" />
+              <span className="relative font-mono text-[11px] uppercase tracking-wider2 text-paper">
+                Order Now
+              </span>
+            </motion.a>
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }
