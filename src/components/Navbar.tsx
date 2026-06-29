@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const navItems = [
   { label: "Products", href: "#products" },
@@ -29,32 +30,32 @@ export default function Navbar() {
     >
       <div className="mx-auto flex max-w-[1400px] items-center justify-between">
         {/* Logo */}
-        <a
-          href="#"
+        <Link
+          to="#"
           className="font-display text-xl font-medium tracking-wider2 text-velvet"
         >
           VELUXE
-        </a>
+        </Link>
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-10 md:flex">
           {navItems.map((item) => (
-            <a
+            <Link
               key={item.label}
-              href={item.href}
+              to={item.href}
               className="group relative text-sm font-light text-paper/90 transition-colors hover:text-paper"
             >
               {item.label}
               <span className="absolute -bottom-1 left-0 h-px w-0 bg-paper transition-all duration-300 group-hover:w-full" />
-            </a>
+            </Link>
           ))}
-          <a
-            href="#order"
+          <Link
+            to="#order"
             className="group relative text-sm font-medium text-coral"
           >
             Order
             <span className="absolute -bottom-1 left-0 h-px w-full bg-coral" />
-          </a>
+          </Link>
         </nav>
 
         {/* Mobile hamburger */}
@@ -95,7 +96,7 @@ export default function Navbar() {
             {navItems.map((item, i) => (
               <motion.a
                 key={item.label}
-                href={item.href}
+                to={item.href}
                 onClick={() => setMenuOpen(false)}
                 initial={{ opacity: 0, x: -8 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -106,7 +107,7 @@ export default function Navbar() {
               </motion.a>
             ))}
             <motion.a
-              href="#order"
+              to="#order"
               onClick={() => setMenuOpen(false)}
               initial={{ opacity: 0, x: -8 }}
               animate={{ opacity: 1, x: 0 }}
