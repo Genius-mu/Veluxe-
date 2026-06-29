@@ -3,10 +3,13 @@ import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+// 1. Properly create a motion-enabled Link component
+const MotionLink = motion(Link);
+
 const navItems = [
-  { label: "Products", href: "#products" },
-  { label: "Journal", href: "#journal" },
-  { label: "Cart", href: "#cart" },
+  { label: "Products", href: "/products" },
+  { label: "Journal", href: "/journal" },
+  { label: "Cart", href: "/cart" },
 ];
 
 export default function Navbar() {
@@ -94,7 +97,8 @@ export default function Navbar() {
             className="absolute inset-x-6 top-full mt-2 flex flex-col border border-paper/10 bg-ink/95 backdrop-blur-md sm:inset-x-10 md:hidden"
           >
             {navItems.map((item, i) => (
-              <motion.a
+              // 2. Swapped custom motion.Link out for MotionLink
+              <MotionLink
                 key={item.label}
                 to={item.href}
                 onClick={() => setMenuOpen(false)}
@@ -104,10 +108,12 @@ export default function Navbar() {
                 className="border-b border-paper/10 px-5 py-4 text-sm font-light text-paper/90 transition-colors hover:bg-paper/5 hover:text-paper"
               >
                 {item.label}
-              </motion.a>
+              </MotionLink>
             ))}
+
+            {/* 3. Corrected 'to' attribute to standard 'href' for motion.a */}
             <motion.a
-              to="#order"
+              href="#order"
               onClick={() => setMenuOpen(false)}
               initial={{ opacity: 0, x: -8 }}
               animate={{ opacity: 1, x: 0 }}
