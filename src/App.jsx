@@ -1,9 +1,12 @@
+import "./App.css";
 import Home from "./pages/Home";
 
-export default function App() {
+function App() {
   return (
-    <main className="relative">
+    <>
       <Home />
-    </main>
+    </>
   );
 }
+
+export default App;
