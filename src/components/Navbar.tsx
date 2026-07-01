@@ -53,7 +53,7 @@ export default function Navbar() {
             </Link>
           ))}
           <Link
-            to="#order"
+            to="/cart"
             className="group relative text-sm font-medium text-coral"
           >
             Order
@@ -113,7 +113,7 @@ export default function Navbar() {
 
             {/* 3. Corrected 'to' attribute to standard 'href' for motion.a */}
             <motion.a
-              href="#order"
+              href="/cart"
               onClick={() => setMenuOpen(false)}
               initial={{ opacity: 0, x: -8 }}
               animate={{ opacity: 1, x: 0 }}

@@ -55,7 +55,7 @@ export default function EmptyCart() {
 
         <motion.div variants={fadeUp} className="mt-10">
           <a
-            href="#products"
+            href="/products"
             className="group relative inline-flex overflow-hidden border border-paper px-7 py-3"
           >
             <span className="absolute inset-0 origin-left scale-x-0 bg-paper transition-transform duration-500 ease-out group-hover:scale-x-100" />

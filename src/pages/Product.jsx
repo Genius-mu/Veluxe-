@@ -18,7 +18,6 @@ const fadeUp = {
 export default function ProductsPage() {
   const [selected, setSelected] = useState(null);
 
-  // Split the catalogue across three columns.
   const [col1, col2, col3] = useMemo(() => {
     const a = products.slice(0, 4);
     const b = products.slice(4, 8);
@@ -27,8 +26,7 @@ export default function ProductsPage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-black text-ink">
-      {/* ── Page header ─────────────────────────────────────────── */}
+    <main className="min-h-screen bg-ink text-paper">
       <section className="px-6 pt-32 pb-12 sm:px-10 sm:pt-40 sm:pb-16">
         <motion.div
           initial="hidden"
@@ -43,16 +41,16 @@ export default function ProductsPage() {
             variants={fadeUp}
             className="mb-5 flex items-center gap-3"
           >
-            <span className="h-px w-8 bg-ink" />
-            <span className="font-mono text-[11px] uppercase tracking-wider2 text-smoke">
+            <span className="h-px w-8 bg-paper/40" />
+            <span className="font-mono text-[11px] uppercase tracking-wider2 text-paper/50">
               The Catalogue
             </span>
-            <span className="h-px w-8 bg-ink" />
+            <span className="h-px w-8 bg-paper/40" />
           </motion.div>
 
           <motion.h1
             variants={fadeUp}
-            className="font-display text-5xl font-medium uppercase leading-[0.95] tracking-tight sm:text-6xl md:text-7xl text-white/30"
+            className="font-display text-5xl font-medium uppercase leading-[0.95] tracking-tight sm:text-6xl md:text-7xl"
           >
             Slowly made.
           </motion.h1>
@@ -65,7 +63,7 @@ export default function ProductsPage() {
 
           <motion.p
             variants={fadeUp}
-            className="mt-7 max-w-md text-[15px] leading-relaxed text-ink/60"
+            className="mt-7 max-w-md text-[15px] leading-relaxed text-paper/60"
           >
             Every Veluxe piece earns its shelf. Hover any column to linger, tap
             any piece to read the full story.
@@ -73,7 +71,6 @@ export default function ProductsPage() {
         </motion.div>
       </section>
 
-      {/* ── Marquee grid (desktop) ──────────────────────────────── */}
       <section className="hidden px-4 pb-24 sm:px-6 md:block">
         <div className="mx-auto grid h-[78vh] min-h-[640px] max-w-[1400px] grid-cols-3 gap-4">
           <MarqueeColumn
@@ -97,7 +94,6 @@ export default function ProductsPage() {
         </div>
       </section>
 
-      {/* ── Mobile grid (no marquee — easier on small screens) ──── */}
       <section className="px-4 pb-24 md:hidden">
         <div className="mx-auto grid max-w-[680px] grid-cols-2 gap-3">
           {products.map((p) => (
@@ -110,7 +106,6 @@ export default function ProductsPage() {
         </div>
       </section>
 
-      {/* ── Modal ───────────────────────────────────────────────── */}
       <ProductModal product={selected} onClose={() => setSelected(null)} />
     </main>
   );
