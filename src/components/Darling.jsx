@@ -85,7 +85,7 @@ export default function Darling() {
 
           <motion.div variants={fadeUp} className="mt-9">
             <a
-              href="#order"
+              href="/products"
               className="group relative inline-flex items-center overflow-hidden border border-ink px-7 py-3"
             >
               <span className="absolute inset-0 origin-left scale-x-0 bg-ink transition-transform duration-500 ease-out group-hover:scale-x-100" />
