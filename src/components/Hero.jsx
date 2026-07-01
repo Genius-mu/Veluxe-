@@ -87,31 +87,32 @@ export default function Hero() {
       />
 
       {/* Vertical slider rail — left edge */}
-      <div className="absolute left-6 top-1/2 z-20 hidden -translate-y-1/2 sm:left-10 md:block">
-        <div className="flex flex-col items-center gap-10">
-          {/* Previous (goes back) */}
+      <div className="absolute right-6 top-1/2 z-20 hidden -translate-y-1/2 sm:left-10 md:block">
+        <div className="flex flex-col items-center gap-8">
+          {/* Previous — arrow up, label reads bottom-to-top */}
           <button
             onClick={() => go(-1)}
             className="group flex flex-col items-center gap-3 text-paper/70 transition-colors hover:text-paper"
             aria-label="Previous slide"
           >
-            <ArrowUp className="h-4 w-4 text-paper/40 transition-transform group-hover:-translate-y-0.5" />
-            <span className="label-eyebrow rotate-180 [writing-mode:vertical-rl]">
+            <ArrowUp className="h-4 w-4 text-paper/40 transition-transform group-hover:-translate-y-0.5 group-hover:text-paper" />
+            <span className="label-eyebrow [writing-mode:vertical-rl] rotate-180">
               Previous
             </span>
           </button>
 
+          {/* Slide counter */}
           <div className="font-mono text-[11px] tabular-nums text-paper/40">
             0{index + 1} / 0{slides.length}
           </div>
 
-          {/* Next (goes forward) */}
+          {/* Next — label reads top-to-bottom, arrow down */}
           <button
             onClick={() => go(1)}
             className="group flex flex-col items-center gap-3 text-paper/70 transition-colors hover:text-paper"
             aria-label="Next slide"
           >
-            <span className="label-eyebrow rotate-180 [writing-mode:vertical-rl]">
+            <span className="label-eyebrow [writing-mode:vertical-rl]">
               Next
             </span>
             <ArrowUp className="h-4 w-4 rotate-180 text-coral transition-transform group-hover:translate-y-0.5" />
