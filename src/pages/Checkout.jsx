@@ -1,7 +1,8 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, ChevronRight, Lock } from "lucide-react";
-import { useMemo, useState } from "react";
-import { products } from "../lib/Product";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
 /* ── inline helpers ────────────────────────────────────────────── */
 
@@ -79,7 +80,7 @@ function Radio({ active, onSelect, name, detail, right, children }) {
   );
 }
 
-/* ── card / expiry format helpers ─────────────────────────────── */
+/* ── format helpers ───────────────────────────────────────────── */
 
 const formatCardNumber = (v) =>
   v
@@ -100,11 +101,17 @@ const format = (n) => `$${n.toFixed(2)}`;
 /* ── main ─────────────────────────────────────────────────────── */
 
 export default function CheckoutPage() {
-  // Contact
+  const { items } = useCart();
+  const navigate = useNavigate();
+
+  // Bounce back to cart if someone lands here empty
+  useEffect(() => {
+    if (items.length === 0) navigate("/cart", { replace: true });
+  }, [items.length, navigate]);
+
   const [email, setEmail] = useState("");
   const [subscribe, setSubscribe] = useState(false);
 
-  // Shipping
   const [ship, setShip] = useState({
     firstName: "",
     lastName: "",
@@ -118,11 +125,9 @@ export default function CheckoutPage() {
   });
   const updateShip = (k, v) => setShip((p) => ({ ...p, [k]: v }));
 
-  // Delivery + payment
   const [delivery, setDelivery] = useState("standard");
   const [payment, setPayment] = useState("card");
 
-  // Card
   const [card, setCard] = useState({
     number: "",
     name: "",
@@ -131,20 +136,9 @@ export default function CheckoutPage() {
   });
   const updateCard = (k, v) => setCard((p) => ({ ...p, [k]: v }));
 
-  // Prefs
   const [saveInfo, setSaveInfo] = useState(false);
   const [billingSame, setBillingSame] = useState(true);
   const [placing, setPlacing] = useState(false);
-
-  // Seeded cart. Replace with your cart store when wiring up.
-  const items = useMemo(
-    () => [
-      { ...products[10], quantity: 1 }, // Daybreak Cleanser
-      { ...products[0], quantity: 1 }, //  Velvet Lip
-      { ...products[5], quantity: 1 }, //  Sundial SPF
-    ],
-    [],
-  );
 
   const subtotal = items.reduce(
     (s, i) => s + parsePrice(i.price) * i.quantity,
@@ -194,7 +188,6 @@ export default function CheckoutPage() {
   const submit = (e) => {
     e.preventDefault();
     setPlacing(true);
-    // TODO: hand off to your order endpoint (Paystack init, Stripe intent, etc.)
     console.log("ORDER →", {
       email,
       ship,
@@ -210,18 +203,19 @@ export default function CheckoutPage() {
     setTimeout(() => setPlacing(false), 1400);
   };
 
+  if (items.length === 0) return null;
+
   return (
     <main className="min-h-screen bg-ink text-paper">
-      {/* ── Header ───────────────────────────────────────────── */}
       <section className="px-6 pt-32 pb-8 sm:px-10 sm:pt-40 sm:pb-12">
         <div className="mx-auto max-w-[1400px]">
           <nav className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider2">
-            <a
-              href="#cart"
+            <Link
+              to="/cart"
               className="text-paper/40 transition-colors hover:text-paper"
             >
               Cart
-            </a>
+            </Link>
             <ChevronRight className="h-3 w-3 text-paper/30" />
             <span className="text-coral">Checkout</span>
             <ChevronRight className="h-3 w-3 text-paper/30" />
@@ -237,12 +231,9 @@ export default function CheckoutPage() {
         </div>
       </section>
 
-      {/* ── Form + Summary ───────────────────────────────────── */}
       <form onSubmit={submit} className="px-6 pb-32 sm:px-10">
         <div className="mx-auto grid max-w-[1400px] gap-12 lg:grid-cols-[1fr_400px] lg:gap-16">
-          {/* ─── LEFT — form ─────────────────────────────── */}
           <div>
-            {/* 01 — Contact */}
             <Section
               number="01"
               title="Contact"
@@ -281,13 +272,11 @@ export default function CheckoutPage() {
               </label>
             </Section>
 
-            {/* 02 — Shipping */}
             <Section number="02" title="Shipping address">
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <Field label="First name">
                   <input
                     type="text"
-                    name="given-name"
                     autoComplete="given-name"
                     required
                     value={ship.firstName}
@@ -298,7 +287,6 @@ export default function CheckoutPage() {
                 <Field label="Last name">
                   <input
                     type="text"
-                    name="family-name"
                     autoComplete="family-name"
                     required
                     value={ship.lastName}
@@ -309,7 +297,6 @@ export default function CheckoutPage() {
                 <Field label="Address" span={2}>
                   <input
                     type="text"
-                    name="address-line1"
                     autoComplete="address-line1"
                     required
                     value={ship.address}
@@ -321,7 +308,6 @@ export default function CheckoutPage() {
                 <Field label="Apartment, suite (optional)" span={2}>
                   <input
                     type="text"
-                    name="address-line2"
                     autoComplete="address-line2"
                     value={ship.apartment}
                     onChange={(e) => updateShip("apartment", e.target.value)}
@@ -331,7 +317,6 @@ export default function CheckoutPage() {
                 <Field label="City">
                   <input
                     type="text"
-                    name="city"
                     autoComplete="address-level2"
                     required
                     value={ship.city}
@@ -342,7 +327,6 @@ export default function CheckoutPage() {
                 <Field label="State / region">
                   <input
                     type="text"
-                    name="state"
                     autoComplete="address-level1"
                     required
                     value={ship.state}
@@ -353,7 +337,6 @@ export default function CheckoutPage() {
                 <Field label="Postal code">
                   <input
                     type="text"
-                    name="postal-code"
                     autoComplete="postal-code"
                     required
                     value={ship.zip}
@@ -363,7 +346,6 @@ export default function CheckoutPage() {
                 </Field>
                 <Field label="Country">
                   <select
-                    name="country"
                     autoComplete="country-name"
                     value={ship.country}
                     onChange={(e) => updateShip("country", e.target.value)}
@@ -381,7 +363,6 @@ export default function CheckoutPage() {
                 <Field label="Phone" span={2}>
                   <input
                     type="tel"
-                    name="tel"
                     autoComplete="tel"
                     required
                     value={ship.phone}
@@ -393,7 +374,6 @@ export default function CheckoutPage() {
               </div>
             </Section>
 
-            {/* 03 — Delivery */}
             <Section number="03" title="Delivery method">
               <div className="space-y-3">
                 {deliveryOptions.map((opt) => (
@@ -409,7 +389,6 @@ export default function CheckoutPage() {
               </div>
             </Section>
 
-            {/* 04 — Payment */}
             <Section
               number="04"
               title="Payment"
@@ -551,25 +530,22 @@ export default function CheckoutPage() {
               </div>
             </Section>
 
-            {/* Return-to-cart link */}
             <div className="pt-8">
-              <a
-                href="/cart"
+              <Link
+                to="/cart"
                 className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider2 text-paper/60 transition-colors hover:text-paper"
               >
                 ← Return to cart
-              </a>
+              </Link>
             </div>
           </div>
 
-          {/* ─── RIGHT — order summary ───────────────────── */}
           <aside className="lg:sticky lg:top-32 lg:self-start">
             <div className="bg-paper/5 p-6 sm:p-8">
               <h2 className="mb-6 font-display text-xl font-medium uppercase tracking-tight text-paper">
                 Your Order
               </h2>
 
-              {/* Items */}
               <div className="space-y-4 border-b border-paper/10 pb-6">
                 {items.map((item) => (
                   <div key={item.id} className="flex items-center gap-4">
@@ -598,7 +574,6 @@ export default function CheckoutPage() {
                 ))}
               </div>
 
-              {/* Totals */}
               <dl className="mt-6 space-y-3 text-sm">
                 <div className="flex justify-between text-paper/70">
                   <dt>Subtotal</dt>
@@ -621,7 +596,6 @@ export default function CheckoutPage() {
                 </div>
               </dl>
 
-              {/* Total */}
               <div className="mt-6 flex items-baseline justify-between border-t border-paper/10 pt-6">
                 <span className="font-mono text-[11px] uppercase tracking-wider2 text-paper/60">
                   Total
@@ -637,7 +611,6 @@ export default function CheckoutPage() {
                 </motion.span>
               </div>
 
-              {/* Place order */}
               <button
                 type="submit"
                 disabled={placing}
@@ -667,7 +640,6 @@ export default function CheckoutPage() {
                 </span>
               </button>
 
-              {/* Trust strip */}
               <div className="mt-5 flex items-center justify-center gap-4 font-mono text-[10px] uppercase tracking-wider2 text-paper/40">
                 <span className="flex items-center gap-1">
                   <Check className="h-3 w-3" /> Secure
