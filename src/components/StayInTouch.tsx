@@ -39,7 +39,7 @@ export default function StayInTouch() {
               </span>
             </button>
             <a
-              href="#contact"
+              href="/contact"
               className="group relative inline-flex items-center justify-center overflow-hidden border border-ink px-7 py-3"
             >
               <span className="absolute inset-0 origin-left scale-x-0 bg-ink transition-transform duration-500 ease-out group-hover:scale-x-100" />
