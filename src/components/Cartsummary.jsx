@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const formatPrice = (n) => `$${n.toFixed(2)}`;
 
@@ -98,15 +99,16 @@ export default function CartSummary({ totals }) {
       </div>
 
       {/* Checkout */}
-      <button
-        type="button"
-        className="group relative mt-6 w-full overflow-hidden bg-coral px-7 py-4 text-paper"
+      <Link
+        to="/checkout"
+        // type="button"
+        className="group cursor-pointer relative mt-6 w-full overflow-hidden bg-coral px-7 py-4 text-paper"
       >
         <span className="absolute inset-0 origin-left scale-x-0 bg-paper transition-transform duration-500 ease-out group-hover:scale-x-100" />
         <span className="relative font-mono text-[11px] uppercase tracking-wider2 transition-colors duration-300 group-hover:text-ink">
           Continue to Checkout
         </span>
-      </button>
+      </Link>
 
       {/* Promo code */}
       <details className="mt-6 group">
