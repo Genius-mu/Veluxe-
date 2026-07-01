@@ -1,14 +1,11 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { useEffect } from "react";
+import { useCart } from "../context/CartContext";
 
-/**
- * Veluxe product modal.
- * - Open when `product` is non-null.
- * - Closes on: backdrop click, X button, Escape key.
- * - Locks body scroll while open.
- */
 export default function ProductModal({ product, onClose }) {
+  const { add } = useCart();
+
   useEffect(() => {
     if (!product) return;
 
@@ -25,6 +22,12 @@ export default function ProductModal({ product, onClose }) {
       document.body.style.overflow = prevOverflow;
     };
   }, [product, onClose]);
+
+  const handleAdd = () => {
+    if (!product) return;
+    add(product, 1);
+    onClose();
+  };
 
   return (
     <AnimatePresence>
@@ -48,7 +51,6 @@ export default function ProductModal({ product, onClose }) {
             onClick={(e) => e.stopPropagation()}
             className="relative grid max-h-[90vh] w-full max-w-4xl grid-cols-1 overflow-y-auto bg-paper shadow-2xl md:grid-cols-2 md:overflow-hidden"
           >
-            {/* Close */}
             <button
               type="button"
               onClick={onClose}
@@ -58,7 +60,6 @@ export default function ProductModal({ product, onClose }) {
               <X className="h-4 w-4" />
             </button>
 
-            {/* Image */}
             <div className="relative aspect-square w-full md:aspect-auto md:h-full">
               <img
                 src={product.image}
@@ -70,7 +71,6 @@ export default function ProductModal({ product, onClose }) {
               </div>
             </div>
 
-            {/* Content */}
             <div className="flex flex-col p-8 md:p-10">
               <div className="flex items-center gap-3">
                 <span className="h-px w-8 bg-ink" />
@@ -115,6 +115,7 @@ export default function ProductModal({ product, onClose }) {
               <div className="mt-auto pt-8">
                 <button
                   type="button"
+                  onClick={handleAdd}
                   className="group relative inline-flex w-full items-center justify-center overflow-hidden bg-ink px-7 py-4 text-paper"
                 >
                   <span className="absolute inset-0 origin-left scale-x-0 bg-coral transition-transform duration-500 ease-out group-hover:scale-x-100" />

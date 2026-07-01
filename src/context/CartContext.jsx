@@ -40,12 +40,11 @@ function reducer(state, action) {
 export function CartProvider({ children }) {
   const [items, dispatch] = useReducer(reducer, undefined, load);
 
-  // Persist to localStorage on every change
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
     } catch {
-      /* quota / private mode — swallow */
+      /* quota exceeded / private mode — safe to ignore */
     }
   }, [items]);
 
