@@ -554,7 +554,7 @@ export default function CheckoutPage() {
             {/* Return-to-cart link */}
             <div className="pt-8">
               <a
-                href="#cart"
+                href="/cart"
                 className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider2 text-paper/60 transition-colors hover:text-paper"
               >
                 ← Return to cart

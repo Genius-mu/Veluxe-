@@ -101,10 +101,9 @@ export default function CartSummary({ totals }) {
       {/* Checkout */}
       <Link
         to="/checkout"
-        // type="button"
-        className="group cursor-pointer relative mt-6 w-full overflow-hidden bg-coral px-7 py-4 text-paper"
+        className="group relative mt-6 block w-full overflow-hidden bg-coral px-7 py-4 text-center text-paper"
       >
-        <span className="absolute inset-0 origin-left scale-x-0 bg-paper transition-transform duration-500 ease-out group-hover:scale-x-100" />
+        <span className="pointer-events-none absolute inset-0 origin-left scale-x-0 bg-paper transition-transform duration-500 ease-out group-hover:scale-x-100" />
         <span className="relative font-mono text-[11px] uppercase tracking-wider2 transition-colors duration-300 group-hover:text-ink">
           Continue to Checkout
         </span>

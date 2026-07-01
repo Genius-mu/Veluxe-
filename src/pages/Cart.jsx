@@ -101,7 +101,7 @@ export default function CartPage() {
             </AnimatePresence>
 
             <a
-              href="#products"
+              href="/products"
               className="mt-10 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider2 text-paper/60 transition-colors hover:text-paper"
             >
               ← Continue shopping
