@@ -74,21 +74,21 @@ const channels = [
     Icon: Mail,
     label: "Email",
     value: "hello@veluxe.co",
-    href: "mailto:hello@veluxe.co",
+    href: "mailto:adegbitemustapha73@gmail.com",
     detail: "For everything · we reply within a working day",
   },
   {
     Icon: MessageCircle,
     label: "WhatsApp",
-    value: "+234 812 000 0000",
-    href: "https://wa.me/2348120000000",
+    value: "+234 916 488 0693",
+    href: "https://wa.me/2349164880693",
     detail: "Mon – Fri · quickest for order questions",
   },
   {
     Icon: InstagramIcon, // ← swapped
     label: "Instagram",
     value: "@veluxe.co",
-    href: "https://instagram.com/veluxe.co",
+    href: "https://www.instagram.com/mustapha_the_website_developer/",
     detail: "Slower, but where the batches drop first",
   },
 ];
