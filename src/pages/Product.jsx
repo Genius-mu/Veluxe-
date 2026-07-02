@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import MarqueeColumn from "../components/MarqueeColumn";
 import ProductCard from "../components/ProductCard";
 import ProductModal from "../components/ProductModal";
-import { products } from "../lib/Product";
+import { products } from "../lib/product";
 
 const fadeUp = {
   hidden: { y: 30, opacity: 0 },
